@@ -1,10 +1,6 @@
 # Sample Nodejs Structure
 
-# Học Mean Stack
-
-## 1. NodeJS
-
-### Cài đặt Typescript và ts-node
+## Cài đặt Typescript và ts-node
 
 - typescipt:Ngôn ngữ lập trình Typescipt
 - ts-node: Trình biên dịch từ typescript sang javascript
@@ -14,14 +10,14 @@
 $ sudo npm install -g typescript ts-node
 ```
 
-### Khởi tạo package.json
+## Khởi tạo package.json
 
 ```bash
 # Khởi tạo file package.json
 $ npm init
 ```
 
-### Khởi tạo tsconfig.json
+## Khởi tạo tsconfig.json
 
 ```bash
 # Khởi tạo file tsconfig.json
@@ -47,7 +43,7 @@ $ tsc --init
 }
 ```
 
-### Thư viện căn bản
+## Thư viện căn bản
 
 - express: framework dành cho Nodejs
 - @types/express: hỗ trợ cú pháp trong framework express
