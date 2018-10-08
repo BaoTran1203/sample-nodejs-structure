@@ -1,26 +1,43 @@
 # Sample Nodejs Structure
 
-## Cài đặt Typescript và ts-node
+## Cài đặt
+1. Cài đặt global để cung cấp câu lệnh mặc định trong command line
 
-- typescipt:Ngôn ngữ lập trình Typescipt
+- typescipt: Ngôn ngữ lập trình Typescipt
 - ts-node: Trình biên dịch từ typescript sang javascript
+- nodemon: Kiểm tra sự thay đổi của code
 
 ```bash
-#!bash
-$ sudo npm install -g typescript ts-node
+$ sudo npm install -g typescript ts-node nodemon
 ```
 
-## Khởi tạo package.json
+Cách sử dụng:
 
 ```bash
-# Khởi tạo file package.json
+$ tsc node.ts
+```
+
+2. Cài đặt trực tiếp trên project
+
+```bash
+$ npm install typescript ts-node nodemon
+```
+
+Cách sử dụng:
+
+```bash
+$ ./node_module/typescript/bin/tsc node.ts
+```
+
+## Khởi tạo package.json (Cấu hình mặc định)
+
+```bash
 $ npm init
 ```
 
 ## Khởi tạo tsconfig.json
 
 ```bash
-# Khởi tạo file tsconfig.json
 $ tsc --init
 ```
 
@@ -31,7 +48,7 @@ $ tsc --init
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "sourceMap": true,
+    // "sourceMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -46,13 +63,18 @@ $ tsc --init
 ## Thư viện căn bản
 
 - express: framework dành cho Nodejs
-- @types/express: hỗ trợ cú pháp trong framework express
 - mongoose: thư viện xử lý CSDL trong mongoDB
-- @types/mongoose: hỗ trợ cú pháp trong mongoose
-- body-parser: chuyển đổi dữ liệu body sang json
-- nodemon: kiểm tra sự thay đổi của code
+- body-parser: chuyển đổi dữ liệu body sang json (từ express phiên bản 4 trở lên đã hỗ trợ sẵn body-parser)
 
 ```bash
-#!bash
-$ sudo npm install --save express @types/express mongoose @types/mongoose body-parser nodemon
+$ sudo npm install --save express mongoose
+```
+
+## Thư viện hỗ trợ
+
+- @types/express: hỗ trợ cú pháp es6 cho express
+- @types/mongoose: hỗ trợ cú pháp es6 cho mongoose
+
+```bash
+$ sudo npm install --save-dev @types/express @types/mongoose
 ```
