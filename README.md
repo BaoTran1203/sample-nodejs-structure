@@ -48,7 +48,6 @@ $ tsc --init
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    // "sourceMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -67,7 +66,7 @@ $ tsc --init
 - body-parser: chuyển đổi dữ liệu body sang json (từ express phiên bản 4 trở lên đã hỗ trợ sẵn body-parser)
 
 ```bash
-$ sudo npm install --save express mongoose
+$ npm install --save express mongoose
 ```
 
 ## Thư viện hỗ trợ
@@ -76,5 +75,5 @@ $ sudo npm install --save express mongoose
 - @types/mongoose: hỗ trợ cú pháp es6 cho mongoose
 
 ```bash
-$ sudo npm install --save-dev @types/express @types/mongoose
+$ npm install --save-dev @types/express @types/mongoose
 ```
