@@ -28,10 +28,13 @@ export class BaseMiddleware {
 	 */
 	async token(req: Request, res: Response, next: any): Promise<void> {
 		const header: string = String(req.headers['authorization']) || '';
-		const token: string = header.replace(`${CONFIG.JWT.SECRET_KEY} `, '');
+		const auth: string[] = header.replace(`Bearer `, '').split(' ');
+
+		let secretCode = auth[0];
+		let token = auth[1];
 
 		try {
-			let authData: any = await jwt.verify(token, CONFIG.JWT.SECRET_KEY);
+			let authData: any = await jwt.verify(token, secretCode);
 			let userId = authData.data;
 			let loggedUser: any = await User.findOne({ _id: userId, isDeleted: false });
 
@@ -45,6 +48,8 @@ export class BaseMiddleware {
 
 			// PASS value to another class (Middleware, Controller)
 			// Example: res.locals.any = any
+			res.locals.secretCode = secretCode;
+			res.locals.token = token;
 			res.locals.loggedUser = loggedUser;
 			next();
 		} catch (error) {

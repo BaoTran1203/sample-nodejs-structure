@@ -1,3 +1,4 @@
+import { Common } from './../../shared/helper/common';
 import { BaseController, iAuthController } from './../../shared/base/base.controller';
 import { Request, Response } from 'express';
 import { User } from '../models/user.model';
@@ -50,9 +51,21 @@ export default class AuthController extends BaseController implements iAuthContr
                 return BaseResponse.error(req, res, { name: 'WrongPassword' });
             }
 
-            let newUser = JSON.parse(JSON.stringify(user));
-            newUser.token = await jwt.sign({ data: newUser._id.toString }, CONFIG.JWT.SECRET_KEY, CONFIG.JWT.OPTIONS);
-            return BaseResponse.success(req, res, newUser);
+            // Create secret code
+            let secretCode = Common.generateCode();
+            await User.findByIdAndUpdate(user._id, { secretCode: secretCode });
+
+            // Sign token
+            let token = await jwt.sign({ data: user._id.toString() }, secretCode, CONFIG.JWT.OPTIONS);
+
+            return res.status(200).json({
+                status: true,
+                code: 200,
+                msg: 'Đăng nhập thành công vào hệ thống.',
+                token: token,
+                secretCode: secretCode,
+                data: user
+            }).end();
         } catch (error) {
             return BaseResponse.error(req, res, error);
         }
@@ -93,6 +106,34 @@ export default class AuthController extends BaseController implements iAuthContr
      * @param res 
      */
     async logout(req: Request, res: Response): Promise<void> {
+        try {
+            // Remove Secret Code
+            let loggedUser: any = res.locals.loggedUser;
+            await User.findByIdAndUpdate(loggedUser._id, { secretCode: '' });
+        } catch (error) {
+            return BaseResponse.error(req, res, error);
+        }
+
         return BaseResponse.success(req, res, 'Đăng xuất thành công.');
+    }
+
+    /**
+     * Lấy thông tin chi tiết tài khoản
+     * @param req 
+     * @param res 
+     */
+    async forgot(req: Request, res: Response): Promise<void> {
+        let loggedUser: any = res.locals.loggedUser;
+        return BaseResponse.success(req, res, loggedUser);
+    }
+
+    /**
+     * Lấy thông tin chi tiết tài khoản
+     * @param req 
+     * @param res 
+     */
+    async reset(req: Request, res: Response): Promise<void> {
+        let loggedUser: any = res.locals.loggedUser;
+        return BaseResponse.success(req, res, loggedUser);
     }
 }

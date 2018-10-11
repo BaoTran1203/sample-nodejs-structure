@@ -37,6 +37,9 @@ export var UserSchema = new mongoose.Schema(
             type: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
             default: []
         },
+        secretCode: {
+            type: String
+        },
         status: {
             type: String,
             required: [true, 'Vui lòng chọn trạng thái.'],
@@ -72,6 +75,7 @@ export var UserSchema = new mongoose.Schema(
  */
 function parseData(doc: any, ret: any) {
     delete ret.hash_password;
+    delete ret.secretCode;
 }
 
 export const User = mongoose.model('User', UserSchema);

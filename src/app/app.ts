@@ -16,7 +16,7 @@ class App {
             origin: '*',
             preflightContinue: false
         }));
-
+       
         new BaseRouting(this.app);
     }
 }
