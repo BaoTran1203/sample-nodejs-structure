@@ -20,5 +20,9 @@ export default class BaseRouting {
         new UserRouting(app);
         new CategoryRouting(app);
         new ProductRouting(app);
+
+        app.get('*', function (req, res) {
+            res.status(201).json({ msg: 'URL không hợp lệ', code: 404, status: false }).end();
+        });
     }
 }

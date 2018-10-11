@@ -13,11 +13,11 @@ export default class UserController extends BaseController implements iCRUDContr
 	 */
 	async list(req: Request, res: Response): Promise<void> {
 		// Get condition for query
-		let condition: any = req.query.condition;
-		let page: number = req.query.page;
-		let ppp: number = req.query.ppp;
+		let condition: any = res.locals.condition;
+		let page: number = res.locals.page;
+		let ppp: number = res.locals.ppp;
 		let skip: number = (page - 1) * ppp;
-		let sort: any = req.query.sort;
+		let sort: any = res.locals.sort;
 
 		// Query from database
 		try {
