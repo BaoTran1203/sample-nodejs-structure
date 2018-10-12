@@ -37,6 +37,9 @@ export var UserSchema = new mongoose.Schema(
             type: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
             default: []
         },
+        accessCode: {
+            type: String
+        },
         secretCode: {
             type: String
         },
@@ -76,6 +79,7 @@ export var UserSchema = new mongoose.Schema(
 function parseData(doc: any, ret: any) {
     delete ret.hash_password;
     delete ret.secretCode;
+    delete ret.accessCode;
 }
 
 export const User = mongoose.model('User', UserSchema);

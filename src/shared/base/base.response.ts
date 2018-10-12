@@ -66,16 +66,6 @@ export class BaseResponse {
             return res.status(201).json({ status: false, code: 401, name: error.name, msg: msg }).end();
         }
 
-        if (error.name === 'AccountNotExist') {
-            let msg = 'Tài khoản không tồn tại trong hệ thống.';
-            return res.status(201).json({ status: false, code: 401, name: error.name, msg: msg }).end();
-        }
-
-        if (error.name === 'WrongPassword') {
-            let msg = 'Mật khẩu không chính xác. Vui lòng kiểm tra lại.';
-            return res.status(201).json({ status: false, code: 401, name: error.name, msg: msg }).end();
-        }
-
         // Lỗi 403: Forbidden
         if (error.name === 'BlockAccount') {
             let msg = 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ ban quản trị.';
@@ -89,6 +79,16 @@ export class BaseResponse {
         }
 
         // Lỗi 201: Created
+        if (error.name === 'AccountNotExist') {
+            let msg = 'Tài khoản không tồn tại trong hệ thống.';
+            return res.status(201).json({ status: false, code: 201, name: error.name, msg: msg }).end();
+        }
+
+        if (error.name === 'WrongPassword') {
+            let msg = 'Mật khẩu không chính xác. Vui lòng kiểm tra lại.';
+            return res.status(201).json({ status: false, code: 201, name: error.name, msg: msg }).end();
+        }
+
         if (error.name === 'ValidationError') {
             let errors: any = error.errors;
             let firstError = errors[Object.keys(errors)[0]];

@@ -10,6 +10,10 @@ export interface iAuthMiddleware {
 	checkLogin(req: Request, res: Response, next: any): Promise<void>;
 
 	checkPassword(req: Request, res: Response, next: any): Promise<void>;
+
+	checkForgot(req: Request, res: Response, next: any): Promise<void>;
+
+	checkReset(req: Request, res: Response, next: any): Promise<void>
 }
 
 export interface iCRUDMiddleware {
@@ -44,6 +48,10 @@ export class BaseMiddleware {
 
 			if (loggedUser.status === 'disabled') {
 				return BaseResponse.error(req, res, { name: 'BlockAccount' });
+			}
+
+			if (loggedUser.secretCode !== secretCode) {
+				return BaseResponse.error(req, res, { name: 'TokenExpiredError' });
 			}
 
 			// PASS value to another class (Middleware, Controller)
