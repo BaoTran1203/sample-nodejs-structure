@@ -3,6 +3,7 @@ import { CONFIG } from '../../shared/helper/config';
 import { Request, Response } from 'express';
 import { BaseController, iCRUDController } from '../../shared/base/base.controller';
 import { BaseResponse } from '../../shared/base/base.response';
+import slug from 'slug';
 
 export default class CategoryController extends BaseController implements iCRUDController {
 
@@ -13,10 +14,10 @@ export default class CategoryController extends BaseController implements iCRUDC
 	 */
     async list(req: Request, res: Response): Promise<void> {
         // Get condition for query
-        let condition: any = req.query.condition;
-        let page: number = req.query.page;
-        let ppp: number = req.query.ppp;
-        let sort: any = req.query.sort;
+        let condition: any = res.locals.condition;
+        let page: number = res.locals.page;
+        let ppp: number = res.locals.ppp;
+        let sort: any = res.locals.sort;
         let skip: number = (page - 1) * ppp;
 
         // Query from database
@@ -38,7 +39,8 @@ export default class CategoryController extends BaseController implements iCRUDC
         // Get data from body
         let categoryData: any = {
             title: req.body.title,
-            description: req.body.description
+            description: req.body.description,
+            slug: slug(req.body.title)
         };
 
         // Insert to database
@@ -65,7 +67,8 @@ export default class CategoryController extends BaseController implements iCRUDC
         // Get data from body
         let categoryData: any = {
             title: req.body.title,
-            description: req.body.description
+            description: req.body.description,
+            slug: slug(req.body.title)
         };
 
         // Update data to database

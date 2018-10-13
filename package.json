@@ -23,6 +23,7 @@
     "mongoose-beautiful-unique-validation": "^7.1.1",
     "mongoose-timestamp-date-unix": "^0.6.2",
     "nodemon": "^1.18.4",
+    "slug": "^0.9.1",
     "validator": "^10.8.0"
   },
   "devDependencies": {
@@ -32,6 +33,7 @@
     "@types/jsonwebtoken": "^7.2.8",
     "@types/lodash": "^4.14.116",
     "@types/mongoose": "^5.2.18",
+    "@types/slug": "^0.9.0",
     "@types/validator": "^9.4.2",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.1"

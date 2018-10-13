@@ -10,6 +10,12 @@ export const CategorySchema = new mongoose.Schema(
             required: [true, 'Vui lòng nhập tiêu đề.'],
             minlength: [0, 'Vui lòng nhập tiêu đề.'],
             maxlength: [10, 'Tiêu đề không được quá 10 kí tự.'],
+            unique: 'Tiêu đề đã có trong dữ liệu. Vui lòng chọn tiêu đề khác.'
+        },
+        slug: {
+            type: String,
+            required: [true, 'Vui lòng nhập tiêu đề.'],
+            unique: 'Tiêu đề đã có trong dữ liệu. Vui lòng chọn tiêu đề khác.'
         },
         description: {
             type: String,
