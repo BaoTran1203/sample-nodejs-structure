@@ -36,15 +36,15 @@ export default class AuthRouting {
         app.route('/v1/forgot').post(checkForgot, forgot);
 
         // [POST] Reset new password
-        app.route('/v1/reset').post(checkReset, reset);
+        app.route('/v1/reset').put(checkReset, reset);
 
         // [POST] Change password's profile
-        app.route('/v1/password').post(token, checkPassword, password);
+        app.route('/v1/password').put(token, checkPassword, password);
 
         // [GET] Get profile
         app.route('/v1/profile').get(token, profile);
 
         // [POST] Update profile
-        app.route('/v1/profile').post(token, profile);
+        app.route('/v1/profile').put(token, profile);
     }
 }

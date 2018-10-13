@@ -102,7 +102,7 @@ export default class AuthController extends BaseController implements iAuthContr
             return BaseResponse.success(req, res, loggedUser);
         }
 
-        if (req.method === 'POST') {
+        if (req.method === 'PUT') {
             try {
                 let userData: any = {
                     fullName: req.body.fullName,

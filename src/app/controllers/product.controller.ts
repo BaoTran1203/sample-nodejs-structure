@@ -25,7 +25,6 @@ export default class ProductController extends BaseController implements iCRUDCo
 
 		// Query from database
 		try {
-			condition.category = { $ne: null };
 			let data = await Product.find(condition).populate({
 				path: 'category',
 				match: { status: 'activated' },
