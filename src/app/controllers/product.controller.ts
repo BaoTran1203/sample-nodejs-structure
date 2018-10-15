@@ -25,12 +25,7 @@ export default class ProductController extends BaseController implements iCRUDCo
 
 		// Query from database
 		try {
-			let data = await Product.find(condition).populate({
-				path: 'category',
-				match: { status: 'activated' },
-				select: '-isDeleted -createdAt -updatedAt'
-			}).limit(ppp).skip(skip).sort(sort);
-
+			let data = await Product.find(condition).populate('category').limit(ppp).skip(skip).sort(sort);
 			let count = await Product.countDocuments(condition);
 			return BaseResponse.success(req, res, data, count);
 		} catch (error) {
@@ -192,15 +187,17 @@ export default class ProductController extends BaseController implements iCRUDCo
 				return String(element) !== String(product._id);
 			});
 
+			let msg = `Đã xóa sản phẩm ${product.title} khõi mục yêu thích.`;
 			if (status == 1) {
 				newProductLikedBy.push(loggedUser._id);
 				newUserWishList.push(product._id);
+				msg = `Đã thêm sản phẩm ${product.title} vào mục yêu thích.`;
 			}
 
 			await Product.findByIdAndUpdate(product._id, { likedBy: newProductLikedBy });
 			await User.findByIdAndUpdate(loggedUser._id, { wishlist: newUserWishList })
 
-			return BaseResponse.success(req, res, `Đã thêm sản phẩm ${product.title} vào mục yêu thích.`);
+			return BaseResponse.success(req, res, msg);
 		} catch (error) {
 			return BaseResponse.error(req, res, error);
 		}
