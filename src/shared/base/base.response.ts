@@ -69,21 +69,21 @@ export class BaseResponse {
         // Lỗi 403: Forbidden
         if (error.name === 'BlockAccount') {
             let msg = 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ ban quản trị.';
-            return res.status(201).json({ status: false, code: 401, name: error.name, msg: msg }).end();
+            return res.status(201).json({ status: false, code: 403, name: error.name, msg: msg }).end();
         }
 
         // Lỗi 404: Not found
+        if (error.name === 'AccountNotExist') {
+            let msg = 'Tài khoản không tồn tại trong hệ thống.';
+            return res.status(201).json({ status: false, code: 404, name: error.name, msg: msg }).end();
+        }
+
         if (error.name === 'NoContent') {
             let msg = 'Không tìm thấy dữ liệu hợp lệ.';
             return res.status(201).json({ status: false, code: 404, name: error.name, msg: msg }).end();
         }
 
         // Lỗi 201: Created
-        if (error.name === 'AccountNotExist') {
-            let msg = 'Tài khoản không tồn tại trong hệ thống.';
-            return res.status(201).json({ status: false, code: 201, name: error.name, msg: msg }).end();
-        }
-
         if (error.name === 'WrongPassword') {
             let msg = 'Mật khẩu không chính xác. Vui lòng kiểm tra lại.';
             return res.status(201).json({ status: false, code: 201, name: error.name, msg: msg }).end();
