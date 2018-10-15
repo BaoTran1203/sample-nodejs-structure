@@ -40,7 +40,7 @@ export default class CategoryController extends BaseController implements iCRUDC
         let categoryData: any = {
             title: req.body.title,
             description: req.body.description,
-            slug: slug(req.body.title)
+            slug: slug(req.body.title).toLowerCase()
         };
 
         // Insert to database
@@ -68,7 +68,7 @@ export default class CategoryController extends BaseController implements iCRUDC
         let categoryData: any = {
             title: req.body.title,
             description: req.body.description,
-            slug: slug(req.body.title)
+            slug: slug(req.body.title).toLowerCase()
         };
 
         // Update data to database

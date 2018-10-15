@@ -48,6 +48,10 @@ export const CategorySchema = new mongoose.Schema(
  * @param doc 
  * @param ret 
  */
-function parseData(doc: any, ret: any) { }
+function parseData(doc: any, ret: any) {
+    if (!ret.slug) {
+        ret.slug = '';
+    }
+}
 
 export const Category = mongoose.model('Category', CategorySchema);
