@@ -4,6 +4,7 @@ import { User } from './../../app/models/user.model';
 import { Request, Response } from 'express';
 import faker from 'faker/locale/vi';
 import _ from 'lodash';
+import slug from 'slug';
 
 /**
  * See: https://www.npmjs.com/package/faker
@@ -41,9 +42,14 @@ export default class Seeder {
     async category(req: Request, res: Response): Promise<void> {
         try {
             let count = 0;
-            while (count < 20) {
+            while (count < 10) {
+                let title: string = faker.commerce.department();
+                if (title.length > 10) {
+                    title = title.substring(0, 9);
+                }
                 let catogoryData: any = {
-                    title: faker.commerce.department(),
+                    title: title,
+                    slug: slug(title),
                     description: faker.lorem.text(),
                     status: faker.random.arrayElement(['activated', 'disabled'])
                 }
@@ -56,6 +62,8 @@ export default class Seeder {
                         count++;
                     }
                 } catch (error) {
+                    console.log(error);
+                    // break;
                 }
             }
             return res.status(200).json({ msg: `Seed done !!!` }).end();
@@ -70,13 +78,13 @@ export default class Seeder {
 
         try {
             let count = 0;
-            while (count < 1000) {
+            while (count < 100) {
                 let productData: any = {
-                    title: faker.commerce.department(),
+                    title: faker.commerce.productName(),
                     description: faker.lorem.text(),
                     price: faker.commerce.price(),
                     discount: faker.random.number({ min: 0, max: 99, precision: 2 }),
-                    thumbnail: faker.image.imageUrl(),
+                    thumbnail: faker.image.imageUrl(300, 200),
                     category: faker.random.arrayElement(catogoryIds),
                     status: faker.random.arrayElement(['activated', 'disabled'])
                 }

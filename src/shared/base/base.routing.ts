@@ -12,9 +12,9 @@ export default class BaseRouting {
             return res.status(200).json({ msg: 'Welcome to Nodejs demo' }).end();
         });
 
-        app.route('/seed/user').get(new Seeder().user);
-        app.route('/seed/category').get(new Seeder().category);
-        app.route('/seed/product').get(new Seeder().product);
+        // app.route('/seed/user').get(new Seeder().user);
+        app.route('/v1/seed/category').get(new Seeder().category);
+        app.route('/v1/seed/product').get(new Seeder().product);
 
         new AuthRouting(app);
         new UserRouting(app);

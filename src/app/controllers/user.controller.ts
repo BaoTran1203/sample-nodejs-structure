@@ -3,6 +3,7 @@ import { User } from '../models/user.model';
 import { CONFIG } from '../../shared/helper/config';
 import { BaseController, iCRUDController } from '../../shared/base/base.controller';
 import { BaseResponse } from '../../shared/base/base.response';
+import bcrypt from 'bcrypt';
 
 export default class UserController extends BaseController implements iCRUDController {
 
@@ -38,7 +39,7 @@ export default class UserController extends BaseController implements iCRUDContr
 		// Get data from body
 		let userData: any = {
 			name: req.body.name,
-			pwd: req.body.pwd,
+			hash_password: bcrypt.hashSync(req.body.password, 12),
 			phone: req.body.phone,
 			email: req.body.email
 		};
@@ -59,7 +60,7 @@ export default class UserController extends BaseController implements iCRUDContr
 	 */
 	async update(req: Request, res: Response): Promise<void> {
 		// Get condition
-		let condition: object = {
+		let condition: any = {
 			_id: req.params.userId,
 			isDeleted: false
 		};
@@ -67,7 +68,7 @@ export default class UserController extends BaseController implements iCRUDContr
 		// Get data from body
 		let userData: any = {
 			name: req.body.name,
-			pwd: req.body.pwd,
+			hash_password: bcrypt.hashSync(req.body.password, 12),
 			phone: req.body.phone,
 			email: req.body.email
 		};
@@ -88,7 +89,7 @@ export default class UserController extends BaseController implements iCRUDContr
 	 */
 	async detail(req: Request, res: Response): Promise<void> {
 		// Get condition
-		let condition: object = {
+		let condition: any = {
 			_id: req.params.userId,
 			isDeleted: false
 		};
