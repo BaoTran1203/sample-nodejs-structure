@@ -1,4 +1,7 @@
+import { isNullOrUndefined } from 'util';
 import { Request, Response } from 'express';
+import isEmpty from 'lodash/isEmpty';
+import isString from 'lodash/isString';
 
 export class BaseResponse {
     /**
@@ -7,13 +10,13 @@ export class BaseResponse {
      * @param data 
      */
     static success(req: Request, res: Response, data: any, total: number = 0) {
-        if (!data || JSON.stringify(data) === '{}' || JSON.stringify(data) === '[]') {
+        if (isNullOrUndefined(data) || isEmpty(data)) {
             let error = { name: 'NoContent' };
             return BaseResponse.error(req, res, error);
         }
 
         // Khác
-        if (typeof data === 'string' || data instanceof String) {
+        if (isString(data)) {
             return res.status(200).json({ status: true, code: 200, msg: data }).end();
         }
 
@@ -106,11 +109,11 @@ export class BaseResponse {
             return res.status(201).json({ status: false, code: 201, name: error.codeName, msg: error.errmsg }).end();
         }
 
-        if (typeof error === 'string' || error instanceof String) {
+        if (isString(error)) {
             return res.status(201).json({ status: false, code: 201, name: 'Error', msg: error }).end();
         }
 
-        let msg = 'Something went wrong!!!';
+        let msg = 'Có lỗi xảy ra. Vui lòng kiểm tra lại.';
         return res.status(201).json({ status: false, code: 201, name: 'Error', msg: msg }).end();
     }
 }

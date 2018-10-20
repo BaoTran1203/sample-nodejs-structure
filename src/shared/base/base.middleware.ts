@@ -25,8 +25,6 @@ export interface iCRUDMiddleware {
 }
 
 export class BaseMiddleware {
-	constructor() { }
-
 	/**
 	 * Xác thực mã token
 	 */
